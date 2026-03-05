@@ -1,0 +1,29 @@
+pipeline {
+    agent none
+
+    stages {
+        stage('STAGE1') {
+            agent { label 'slave1' }
+            steps {
+                
+               echo "This is the stage 1"
+               sh '''
+                    sleep 10
+                    echo "This is a linux command"
+                '''
+            }
+        }
+        stage('Build') {
+
+            agent { label 'slave2' }
+
+            steps {
+                echo "Building Java code"
+                sh '''
+                    #!/bin/bash
+                    sleep 10
+                '''
+            }
+        }
+    }
+}
